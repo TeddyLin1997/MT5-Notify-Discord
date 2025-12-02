@@ -23,11 +23,11 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
       color = DiscordColor.RED;
       break;
     case EventType.PARTIAL_CLOSE:
-      title = '✂️ 部分平倉通知';
+      title = '📉 平倉通知';
       color = DiscordColor.RED;
       break;
     case EventType.SL_TP_MODIFY:
-      title = '🔧 SL/TP 修改';
+      title = '🔧 TP/SL 修改';
       color = DiscordColor.YELLOW;
       break;
     case EventType.ORDER_MODIFY:
@@ -58,8 +58,8 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
   // 根據事件類型構建欄位
   const fields = [
     { name: '交易品種', value: `${symbol}`, inline: false },
-    { name: '交易數量', value: volume.toFixed(2), inline: true },
-    { name: '交易方向', value: side === 'BUY' ? 'Buy' : 'Sell', inline: true },
+    { name: '交易數量', value: volume.toFixed(2), inline: false },
+    { name: '交易方向', value: side === 'BUY' ? 'Buy' : 'Sell', inline: false },
   ];
 
   // 開倉/掛單：顯示入場價格、SL、TP
@@ -68,8 +68,8 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
     eventType === EventType.PENDING_ORDER_MODIFY) {
     fields.push(
       { name: '入場價格(Entry)', value: price.toFixed(5), inline: false },
-      { name: '止損(Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: true },
-      { name: '止盈(Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: true }
+      { name: '止損(Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
+      { name: '止盈(Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false }
     );
   }
 
@@ -95,8 +95,8 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
   // SL/TP 修改：顯示新的 SL/TP
   if (eventType === EventType.SL_TP_MODIFY || eventType === EventType.ORDER_MODIFY) {
     fields.push(
-      { name: '止損 (Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: true },
-      { name: '止盈 (Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: true }
+      { name: '止損 (Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
+      { name: '止盈 (Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false }
     );
   }
 

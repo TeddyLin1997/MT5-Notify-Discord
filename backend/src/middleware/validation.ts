@@ -19,7 +19,7 @@ export function validateMT5Event(req: Request, res: Response, next: NextFunction
     'timestamp',
   ];
 
-  const missingFields = requiredFields.filter((field) => !event[field]);
+  const missingFields = requiredFields.filter((field) => event[field] === undefined || event[field] === null);
 
   if (missingFields.length > 0) {
     logger.warn('Missing required fields', { missingFields, event });
@@ -27,6 +27,15 @@ export function validateMT5Event(req: Request, res: Response, next: NextFunction
       error: 'Missing required fields',
       fields: missingFields,
     });
+  }
+
+  // 檢查空值 (針對 symbol 和 side)
+  if (event.symbol === '') {
+    return res.status(400).json({ error: 'Symbol cannot be empty' });
+  }
+
+  if ((event.side as string) === '') {
+    return res.status(400).json({ error: 'Side cannot be empty' });
   }
 
   // 驗證 eventType

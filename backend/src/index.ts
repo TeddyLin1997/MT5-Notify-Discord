@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
 import { config } from './config';
 import { logger } from './utils/logger';
 import mt5Routes from './routes/mt5';
@@ -35,6 +36,10 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+app.get('/favicon.ico', (req: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, '../favicon.ico'));
+});
 
 // ========== 路由設置 ==========
 
