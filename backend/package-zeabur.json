@@ -1,0 +1,38 @@
+{
+  "name": "mt5-notify-backend",
+  "version": "1.0.0",
+  "description": "MT5 交易事件監控後端 API - Discord 通知系統（Zeabur 版本）",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "preinstall": "npm config set registry https://registry.npmjs.org"
+  },
+  "keywords": ["mt5", "discord", "trading", "webhook", "zeabur"],
+  "author": "OneBase Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.11"
+  }
+}
