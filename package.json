@@ -1,0 +1,19 @@
+{
+  "name": "mt5-notify",
+  "version": "1.0.0",
+  "description": "MT5 交易事件監控與 Discord 通知系統",
+  "main": "backend/dist/index.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "install": "cd backend && npm install",
+    "build": "cd backend && npm run build",
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev"
+  },
+  "keywords": ["mt5", "discord", "trading", "webhook", "zeabur"],
+  "author": "OneBase Team",
+  "license": "MIT"
+}

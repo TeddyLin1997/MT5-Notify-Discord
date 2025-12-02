@@ -64,12 +64,12 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
 
   // 開倉/掛單：顯示入場價格、SL、TP
   if (eventType === EventType.ORDER_OPEN ||
-      eventType === EventType.PENDING_ORDER_ADD ||
-      eventType === EventType.PENDING_ORDER_MODIFY) {
+    eventType === EventType.PENDING_ORDER_ADD ||
+    eventType === EventType.PENDING_ORDER_MODIFY) {
     fields.push(
-      { name: '入場價格 (Entry)', value: price.toFixed(5), inline: false },
-      { name: '止損 (Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: true },
-      { name: '止盈 (Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: true }
+      { name: '入場價格(Entry)', value: price.toFixed(5), inline: false },
+      { name: '止損(Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: true },
+      { name: '止盈(Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: true }
     );
   }
 
@@ -77,7 +77,7 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
   if (eventType === EventType.ORDER_CLOSE || eventType === EventType.PARTIAL_CLOSE) {
     // 注意：MT5 的 price 在平倉時是平倉價格，這裡需要從 Deal 獲取開倉價格
     fields.push(
-      { name: '平倉價格 (Close)', value: price.toFixed(5), inline: false }
+      { name: '平倉價格', value: price.toFixed(5), inline: false }
     );
 
     // 新增損益資訊

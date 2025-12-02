@@ -1,17 +1,8 @@
 {
-  "name": "MT5-Notify",
-  "services": [
-    {
-      "name": "backend",
-      "type": "nodejs",
-      "buildCommand": "cd backend && npm ci && npm run build",
-      "startCommand": "cd backend && npm start",
-      "port": 8080,
-      "rootDirectory": "backend",
-      "env": {
-        "PORT": "8080",
-        "NODE_ENV": "production"
-      }
-    }
-  ]
+  "build": {
+    "buildCommand": "npm run build"
+  },
+  "deploy": {
+    "startCommand": "npm start"
+  }
 }
