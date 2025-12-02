@@ -13,7 +13,13 @@
     "start": "cd backend && npm start",
     "dev": "cd backend && npm run dev"
   },
-  "keywords": ["mt5", "discord", "trading", "webhook", "zeabur"],
+  "keywords": [
+    "mt5",
+    "discord",
+    "trading",
+    "webhook",
+    "zeabur"
+  ],
   "author": "OneBase Team",
   "license": "MIT"
 }
