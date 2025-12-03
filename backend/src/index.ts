@@ -37,8 +37,8 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
-app.get('/favicon.ico', (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, '../favicon.ico'));
+app.get('/favicon.png', (req: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, '../favicon.png'));
 });
 
 // ========== 路由設置 ==========
