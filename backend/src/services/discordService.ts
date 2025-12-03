@@ -57,9 +57,9 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
 
   // 根據事件類型構建欄位
   const fields = [
-    { name: '交易品種', value: `${symbol}`, inline: true },
-    { name: '交易數量', value: volume.toFixed(2), inline: false },
-    { name: '交易方向', value: side === 'BUY' ? 'Buy' : 'Sell', inline: false },
+    { name: '交易品種', value: `${symbol}`, inline: false },
+    { name: '交易數量', value: volume.toFixed(2), inline: true },
+    { name: '交易方向', value: side === 'BUY' ? 'Buy' : 'Sell', inline: true },
   ];
 
   // 開倉/掛單：顯示入場價格、SL、TP
@@ -67,9 +67,9 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
     eventType === EventType.PENDING_ORDER_ADD ||
     eventType === EventType.PENDING_ORDER_MODIFY) {
     fields.push(
-      { name: '入場價格(Entry)', value: price.toFixed(5), inline: true },
-      { name: 'TP', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false },
-      { name: 'SL', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
+      { name: '入場價格', value: price.toFixed(5), inline: false },
+      { name: 'TP', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: true },
+      { name: 'SL', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: true },
     );
   }
 
@@ -95,8 +95,8 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
   // SL/TP 修改：顯示新的 SL/TP
   if (eventType === EventType.SL_TP_MODIFY || eventType === EventType.ORDER_MODIFY) {
     fields.push(
-      { name: 'TP', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false },
-      { name: 'SL', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
+      { name: 'TP', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: true },
+      { name: 'SL', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: true },
     );
   }
 
