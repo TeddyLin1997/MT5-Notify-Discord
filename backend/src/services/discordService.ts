@@ -10,54 +10,54 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
   const { eventType, symbol, side, volume, price, sl, tp, comment, magic, profit, balance } = event;
 
   // 根據事件類型決定標題和顏色
-  let title: string;
+  let description: string;
   let color: DiscordColor;
 
   switch (eventType) {
     case EventType.ORDER_OPEN:
-      title = '📈 開倉通知';
+      description = '📈 開倉通知';
       color = DiscordColor.GREEN;
       break;
     case EventType.ORDER_CLOSE:
-      title = '📉 平倉通知';
+      description = '📉 平倉通知';
       color = DiscordColor.RED;
       break;
     case EventType.PARTIAL_CLOSE:
-      title = '📉 平倉通知';
+      description = '📉 平倉通知';
       color = DiscordColor.RED;
       break;
     case EventType.SL_TP_MODIFY:
-      title = '🔧 TP/SL 修改';
+      description = '🔧 TP/SL 修改';
       color = DiscordColor.YELLOW;
       break;
     case EventType.ORDER_MODIFY:
-      title = '🔧 訂單修改';
+      description = '🔧 訂單修改';
       color = DiscordColor.YELLOW;
       break;
     case EventType.PENDING_ORDER_ADD:
-      title = '📝 掛單新增';
+      description = '📝 掛單新增';
       color = DiscordColor.BLUE;
       break;
     case EventType.PENDING_ORDER_MODIFY:
-      title = '✏️ 掛單修改';
+      description = '✏️ 掛單修改';
       color = DiscordColor.BLUE;
       break;
     case EventType.PENDING_ORDER_DELETE:
-      title = '🗑️ 掛單刪除';
+      description = '🗑️ 掛單刪除';
       color = DiscordColor.BLUE;
       break;
     default:
-      title = '🔔 交易事件';
+      description = '🔔 交易事件';
       color = DiscordColor.BLUE;
   }
 
   // 構建描述（策略名稱粗體顯示）
-  const strategyName = comment || '未命名策略';
-  const description = `**${strategyName}**`;
+  const strategyName = `${comment} 策略` || '未命名策略';
+  const title = `**${strategyName}**`;
 
   // 根據事件類型構建欄位
   const fields = [
-    { name: '交易品種', value: `${symbol}`, inline: false },
+    { name: '交易品種', value: `${symbol}`, inline: true },
     { name: '交易數量', value: volume.toFixed(2), inline: false },
     { name: '交易方向', value: side === 'BUY' ? 'Buy' : 'Sell', inline: false },
   ];
@@ -67,9 +67,9 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
     eventType === EventType.PENDING_ORDER_ADD ||
     eventType === EventType.PENDING_ORDER_MODIFY) {
     fields.push(
-      { name: '入場價格(Entry)', value: price.toFixed(5), inline: false },
-      { name: '止損(Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
-      { name: '止盈(Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false }
+      { name: '入場價格(Entry)', value: price.toFixed(5), inline: true },
+      { name: 'TP', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false },
+      { name: 'SL', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
     );
   }
 
@@ -95,8 +95,8 @@ export function buildDiscordEmbed(event: MT5Event): DiscordEmbed {
   // SL/TP 修改：顯示新的 SL/TP
   if (eventType === EventType.SL_TP_MODIFY || eventType === EventType.ORDER_MODIFY) {
     fields.push(
-      { name: '止損 (Stop Loss)', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
-      { name: '止盈 (Take Profit)', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false }
+      { name: 'TP', value: tp > 0 ? tp.toFixed(5) : '未設置', inline: false },
+      { name: 'SL', value: sl > 0 ? sl.toFixed(5) : '未設置', inline: false },
     );
   }
 
